@@ -18,6 +18,7 @@ TOKENS = {
     "alpha_numeric": list(string.ascii_lowercase + string.digits)
 }
 
+
 def parse_args():
     """
     Defines and parses commandline arguments.
@@ -31,6 +32,7 @@ def parse_args():
                         help="type of password tokens to use; defaults to mnemonic words")
     return parser.parse_args()
 
+
 def main():
     """
     Generates a psuedo-random password which conforms to the options specified.
@@ -38,11 +40,10 @@ def main():
     See pw --help for all available options.
     """
     args = parse_args()
-    token_type = TOKENS[args.token]
-    tokens = [token_type[secrets.randbelow(
-        len(token_type))] for i in range(args.length)]
-    pw = args.delimiter.join(tokens)
-    print(pw)
+    token_choices = TOKENS[args.token]
+    tokens = [token_choices[secrets.randbelow(
+        len(token_choices))] for i in range(args.length)]
+    print(args.delimiter.join(tokens))
 
 
 if __name__ == "__main__":
