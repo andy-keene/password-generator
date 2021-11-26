@@ -1,0 +1,49 @@
+#!/opt/homebrew/bin/python3
+"""
+Generates simple psuedo-random strings.
+
+Author: Andy Keene
+Date: 2021-11-25
+"""
+
+import argparse
+import secrets
+import string
+import pw_data.bip as bip
+
+TOKENS = {
+    "mnemonic": bip.bip_0039,
+    "alpha_lower": list(string.ascii_lowercase),
+    "numeric": list(string.digits),
+    "alpha_numeric": list(string.ascii_lowercase + string.digits)
+}
+
+def parse_args():
+    """
+    Defines and parses commandline arguments.
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--length", type=int, default=4,
+                        help="number of elements to use; defaults to 4")
+    parser.add_argument("-d", "--delimiter", type=str, default="-",
+                        help="token delimiter to use; defaults to \"-\"")
+    parser.add_argument("-t", "--token", type=str, default="mnemonic", choices=TOKENS.keys(),
+                        help="type of password tokens to use; defaults to mnemonic words")
+    return parser.parse_args()
+
+def main():
+    """
+    Generates a psuedo-random password which conforms to the options specified.
+
+    See pw --help for all available options.
+    """
+    args = parse_args()
+    token_type = TOKENS[args.token]
+    tokens = [token_type[secrets.randbelow(
+        len(token_type))] for i in range(args.length)]
+    pw = args.delimiter.join(tokens)
+    print(pw)
+
+
+if __name__ == "__main__":
+    main()
