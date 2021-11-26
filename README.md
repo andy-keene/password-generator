@@ -29,8 +29,6 @@ optional arguments:
                         type of password tokens to use; defaults to mnemonic words
 ```
 
-### Tokens
-
 | token name    | set                                                                                                                                                                                                        |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | mnemonic      | [bip-0039](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) english word list; used by many wallet programs such as [Electrum](https://electrum.readthedocs.io/en/latest/seedphrase.html) |
